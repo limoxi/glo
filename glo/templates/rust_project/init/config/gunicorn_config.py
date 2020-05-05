@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding: utf8
 
 import os
 from multiprocessing import cpu_count
@@ -15,5 +15,5 @@ reload = __is_dev
 bind = '{}:{}'.format(__SERVICE_HOST, __SERVICE_PORT)
 workers = 1 if __is_dev else cpu_count()
 
-proc_name = '&service_name'
+proc_name = '&_service_name'
 

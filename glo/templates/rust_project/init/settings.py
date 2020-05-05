@@ -1,4 +1,4 @@
-#coding: utf8
+# coding: utf8
 
 import os
 
@@ -6,7 +6,7 @@ PROJECT_HOME = os.path.dirname(os.path.abspath(__file__))
 
 DEBUG = (os.environ.get('_DEBUG', '0') == '1')
 MODE = os.environ.get('_SERVICE_MODE', 'develop')
-SERVICE_NAME = '&{service_name}'
+SERVICE_NAME = '&_{project_name}'
 SERVICE_HOST = '127.0.0.1'
 SERVICE_PORT = 9001
 

@@ -1,10 +1,10 @@
-#coding: utf8
+# coding: utf8
 
 import os
 
 DB_HOST = os.environ.get('_DB_HOST', 'db.dev.com')
-DB_NAME = os.environ.get('_DB_NAME', '&service_name')
-DB_USER = os.environ.get('_DB_USER', '&service_name')
+DB_NAME = os.environ.get('_DB_NAME', '&_service_name')
+DB_USER = os.environ.get('_DB_USER', '&_service_name')
 DB_PORT = os.environ.get('_DB_PORT', '3306')
 DB_PASSWORD = os.environ.get('_DB_PASSWORD', '123456')
 

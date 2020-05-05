@@ -9,7 +9,7 @@ def find_extra_data(target_dirs):
 	"""
 	查找target_dir下所有目录和文件并组织成package_data要求的格式
 	"""
-	root_path = 'rust'
+	root_path = 'glo'
 	root_path_ = root_path + '/'
 	files = []
 	for target_dir in target_dirs:
@@ -37,16 +37,16 @@ def collect_requires():
 		return ['click']
 
 setup(
-	name='rust',
+	name='glo',
 	version=version,
 	url='https://github.com/limoxi/glo.git',
 	author='aix',
 	author_email='asia-aixiang@163.com',
 	packages=find_packages(),
-	package_data=find_extra_data(['static', 'templates']),
+	package_data=find_extra_data(['templates']),
 	install_requires=collect_requires(),
 	entry_points='''
 		[console_scripts]
-		rust-cli=rust.utils.rust_cli:cli
+		glo=glo.core.cli:cli
 	''',
 )

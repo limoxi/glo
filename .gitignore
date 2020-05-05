@@ -3,3 +3,5 @@ venv/
 *.pyc
 *.DS_Store
 .project
+build/
+glo.egg-info/
