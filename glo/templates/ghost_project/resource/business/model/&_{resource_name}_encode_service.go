@@ -3,17 +3,17 @@ package &_{resource_name}
 import (
 	"context"
 	"github.com/limoxi/ghost"
-	ghost_util "github.com/limoxi/ghost/utils"
+	ghost_utils "github.com/limoxi/ghost/utils"
 )
 
 type &_{resource_title}EncodeService struct {
-	ghost.DomainObject
+	ghost.DomainService
 }
 
 func (this *&_{resource_title}EncodeService) Encode(&_{resource_name} *&_{resource_title}) *Encoded&_{resource_title}{
 	return &Encoded&_{resource_title}{
 		Id: &_{resource_name}.Id,
-		CreatedAt: &_{resource_name}.CreatedAt.Format(ghost_util.DEFAULT_TIME_LAYOUT),
+		CreatedAt: &_{resource_name}.CreatedAt.Format(ghost_utils.DEFAULT_TIME_LAYOUT),
 	}
 }
 

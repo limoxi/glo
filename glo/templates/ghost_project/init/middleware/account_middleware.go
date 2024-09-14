@@ -5,6 +5,7 @@ package middleware
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/limoxi/ghost"
+	ghost_utils "github.com/limoxi/ghost/utils"
 )
 
 type AccountMiddleware struct{
@@ -16,7 +17,25 @@ func (this *AccountMiddleware) Init(){
 }
 
 func (this *AccountMiddleware) PreRequest (ctx *gin.Context){
+    ginCtx := ctx.GetGinCtx()
+	if ginCtx == nil {
+		return
+	}
 
+	token := ginCtx.GetHeader("Authorization")
+	if token == "" {
+		panic(ghost.NewBusinessError("Token is expired"))
+	}
+
+	data := ghost_utils.DecodeJwtToken(token)
+	userId := 0
+	switch data["user_id"].(type) {
+	case float64:
+		userId = int(data["user_id"].(float64))
+	case int:
+		userId = data["user_id"].(int)
+	}
+	ctx.Set("userId", userId)
 }
 
 func (this *AccountMiddleware) AfterResponse(ctx *gin.Context){

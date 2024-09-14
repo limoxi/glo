@@ -5,7 +5,7 @@ import (
 )
 
 type &_{resource_title} struct {
-	ghost.BaseModel
+	ghost.BaseDBModel
 
 }
 func (&_{resource_title}) TableName() string{

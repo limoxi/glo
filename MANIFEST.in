@@ -1,0 +1,2 @@
+recursive-include glo/templates *
+prune glo/templates/rust_project/

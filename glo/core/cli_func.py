@@ -1,6 +1,7 @@
 # coding: utf8
 
 import os
+from pprint import pprint
 from string import Template
 
 from glo.core.resource_params import ResourceParams
@@ -18,7 +19,7 @@ def __create_file(path, inner_content):
 	创建文件
 	"""
 	if not os.path.exists(path) or path.split(os.path.sep)[-1] == '__init__.py':
-		with open(path, 'w') as f:
+		with open(path, 'w', encoding='utf-8') as f:
 			f.write(inner_content)
 
 def __create_files(src_path, target_path, file_names):
@@ -30,10 +31,10 @@ def __create_files(src_path, target_path, file_names):
 			continue
 
 		src_file_path = src_path + os.path.sep + name
-		with open(src_file_path, 'r') as f:
+		with open(src_file_path, 'r', encoding='utf-8') as f:
 			content_tmp = f.read()
 
-		print src_file_path, '----------'
+		print(src_file_path, '----------')
 		content = RTemplate(content_tmp).substitute(TPL_DATA)
 		name = RTemplate(name).substitute(TPL_DATA)
 		target_file_path = target_path + os.path.sep + name
@@ -82,25 +83,25 @@ def init_project(framework, service_name):
 			__create_dirs(target_path, dirs)
 
 		if files:
-			print src_path, "============"
+			print(src_path, "============")
 			__create_files(src_path, target_path, files)
 
 def __register_ghost_api(project_path):
-	with open(os.path.join(project_path, 'api', 'resources.go'), 'r') as f:
+	with open(os.path.join(project_path, 'api', 'resources.go'), 'r', encoding='utf-8') as f:
 		lines = f.readlines()
 		content = """	_ "{}/api/{}"\n""".format(TPL_DATA['project_name'], TPL_DATA['resource_name'])
 		lines.insert(-1, content)
 
-	with open(os.path.join(project_path, 'api', 'resources.go'), 'wb') as f:
+	with open(os.path.join(project_path, 'api', 'resources.go'), 'w', encoding='utf-8') as f:
 		f.write(''.join(lines))
 
 def __register_ghost_db(project_path):
-	with open(os.path.join(project_path, 'db', 'init.go'), 'r') as f:
+	with open(os.path.join(project_path, 'db', 'init.go'), 'r', encoding='utf-8') as f:
 		lines = f.readlines()
 		content = """	_ "{}/db/{}"\n""".format(TPL_DATA['project_name'], TPL_DATA['resource_name'])
 		lines.insert(4, content)
 
-	with open(os.path.join(project_path, 'db', 'init.go'), 'wb') as f:
+	with open(os.path.join(project_path, 'db', 'init.go'), 'w', encoding='utf-8') as f:
 		f.write(''.join(lines))
 
 def __add_ghost_resource(resource_params, template_path, project_path):
@@ -108,7 +109,7 @@ def __add_ghost_resource(resource_params, template_path, project_path):
 	db_files = []
 	domain_files = []
 	api_src_path = os.path.join(template_path, 'api')
-	domain_src_path = os.path.join(template_path, 'domain')
+	domain_src_path = os.path.join(template_path, 'business', 'model')
 	db_src_path = os.path.join(template_path, 'db')
 	for _, __, files in os.walk(api_src_path):
 		api_files = files
@@ -120,7 +121,7 @@ def __add_ghost_resource(resource_params, template_path, project_path):
 	resource_name = resource_params.resource_name
 	__create_files(api_src_path, os.path.join(project_path, 'api', resource_name), api_files)
 	__register_ghost_api(project_path)
-	__create_files(domain_src_path, os.path.join(project_path, 'domain', 'model', resource_name), domain_files)
+	__create_files(domain_src_path, os.path.join(project_path, 'business', 'model', resource_name), domain_files)
 	__create_files(db_src_path, os.path.join(project_path, 'db', resource_name), db_files)
 	__register_ghost_db(project_path)
 
@@ -128,8 +129,8 @@ def add_resource(resource_params):
 	"""
 	增加资源
 	"""
-	if not os.getcwd().endswith(resource_params.project_name):
-		raise Exception('you need to enter into the project dir and run glo add !!!')
+	# if not os.getcwd().endswith(resource_params.project_name):
+	# 	raise Exception('you need to enter into the project dir and run glo add !!!')
 	template_path = os.path.join(CURRENT_DIR, '..{sep}templates{sep}{framework}_project{sep}resource'.format(
 		sep=os.path.sep,
 		framework=resource_params.framework
@@ -143,11 +144,11 @@ def __addon_file_content(path, inner_content):
 	"""
 	追加文件内容
 	"""
-	with open(path, 'a') as f:
+	with open(path, 'a', encoding='utf-8') as f:
 		f.write(inner_content)
 
-if __name__ == '__main__':
-	# init_project('ghost', 'test')
-	add_resource(ResourceParams(
-		"ghost", "test", "woman", "women"
-	))
+# if __name__ == '__main__':
+# 	# init_project('ghost', 'test')s
+# 	add_resource(ResourceParams(
+# 		"ghost", "test", "woman", "women"
+# 	))

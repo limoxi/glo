@@ -7,7 +7,7 @@ import (
 )
 
 type &_{resource_title}Repository struct {
-	ghost.BasDomainRepository
+	ghost.BaseDomainRepository
 }
 
 func (this *&_{resource_title}Repository) GetByFilters(filters ghost.Map) []*&_{resource_title}{
@@ -19,7 +19,8 @@ func (this *&_{resource_title}Repository) GetByFilters(filters ghost.Map) []*&_{
 	}
 	result := db.Order("-id").Find(&dbModels)
 	if err := result.Error; err != nil{
-		panic(err)
+		ghost.Error(err)
+		return []*&_{resource_title}{}
 	}
 
 	&_{resource_plural} := make([]*&_{resource_title}, 0)
